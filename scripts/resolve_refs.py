@@ -45,13 +45,13 @@ def main(conf_dir, wheels_dir, out_dir, target_repo, ref):
                             (target.owner, target.repo, target.branch, target.package_name))
                 else:
                     if target.branch.startswith('refs/'):
-                        fp_script.write('git clone https://github.com/%s/%s.git && '
+                        fp_script.write('git clone --depth=1 https://github.com/%s/%s.git && '
                                         'cd %s && '
                                         'git fetch origin %s && '
                                         'git checkout FETCH_HEAD\n' %
                                 (target.owner, target.repo, target.repo, target.branch))
                     else:
-                        fp_script.write('git clone -b %s https://github.com/%s/%s.git\n' %
+                        fp_script.write('git clone --depth=1 -b %s https://github.com/%s/%s.git\n' %
                                 (target.branch, target.owner, target.repo))
 
             fp_script.write('WHEELS=' + wheels_dir + '\n')
